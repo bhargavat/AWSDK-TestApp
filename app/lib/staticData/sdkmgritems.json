@@ -1,0 +1,218 @@
+{"data":[
+	{
+	"label": "API Version",
+	"value": "undefined"
+	},
+	{
+	"label": "Device UID",
+	"value": "undefined"
+	},
+	{
+	"label": "API Permission",
+	"value": "undefined"
+	},
+	{
+	"label": "Enrollment Status",
+	"value": "undefined"
+	},
+	{
+	"label": "Enrollment Username",
+	"value": "undefined"
+	},
+	{
+	"label": "Server Name",
+	"value": "undefined"
+	},
+	{
+	"label": "Group ID",
+	"value": "undefined"
+	},
+	{
+	"label": "Authentication Type",
+	"value": "undefined"
+	},
+	{
+	"label": "Authentication User",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Passcode Required",
+	"value": "undefined"
+	},
+	{
+	"label": "Passcord Complexity",
+	"value": "undefined"
+	},
+	{
+	"label": "Min Passcode Length",
+	"value": "undefined"
+	},
+	{
+	"label": "Min Complex Char Length",
+	"value": "undefined"
+	},
+	{
+	"label": "Maximum Passcode Age",
+	"value": "undefined"
+	},
+	{
+	"label": "Passcode History",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Compliant",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Compromised",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Enterprise",
+	"value": "undefined"
+	},
+	{
+	"label": "Bluetooth Allowed",
+	"value": "undefined"
+	},
+	{
+	"label": "Camera Allowed",
+	"value": "undefined"
+	},
+	{
+	"label": "Offline Mode Allowed",
+	"value": "undefined"
+	},
+	{
+	"label": "Prevent Copy and Cut",
+	"value": "undefined"
+	},
+	{
+	"label": "Wifi SSID Allowed",
+	"value": "undefined"
+	},
+	{
+	"label": "Application Profile ID",
+	"value": "undefined"
+	},
+	{
+	"label": "Application Profile Name",
+	"value": "undefined"
+	},
+	{
+	"label": "Get Certificate",
+	"value": "undefined"
+	},
+	{
+	"label": "DND Enable Status",
+	"value": "undefined"
+	},
+	{
+	"label": "DND Status Has Been Set",
+	"value": "undefined"
+	},
+	{
+	"label": "Is SSO Session Valid",
+	"value": "undefined"
+	},
+	{
+	"label": "Is SSO Enabled",
+	"value": "undefined"
+	},
+	{
+	"label": "SSO Grace Period",
+	"value": "undefined"
+	},
+	{
+	"label": "DND Status",
+	"value": "undefined"
+	},
+	{
+	"label": "Workspace Exit Mode",
+	"value": "undefined"
+	},
+	{
+	"label": "Anchor Type",
+	"value": "undefined"
+	},
+	{
+	"label": "Console Version",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Integrated Auth Enabled",
+	"value": "undefined"
+	},
+	{
+	"label": "Domains Supported",
+	"value": "undefined"
+	},
+	{
+	"label": "LG Configure Mode",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Integrated Auth Enabled",
+	"value": "undefined"
+	},
+	{
+	"label": "Domains Supported",
+	"value": "undefined"
+	},
+	{
+	"label": "LG Configure Mode",
+	"value": "undefined"
+	},
+	{
+	"label": "Is Shared Device Mode Enabled",
+	"value": "undefined"
+	},
+	{
+	"label": "Shared Device Chekout Status",
+	"value": "undefined"
+	},
+	{
+	"label": "Session Token",
+	"value": "undefined"
+	},
+	{
+	"label": "Custom Settings",
+	"value": "undefined"
+	},
+	{
+	"label": "Profile Groups",
+	"value": "undefined"
+	},
+	{
+	"label": "Loggin Enable Status",
+	"value": "undefined"
+	},
+	{
+	"label": "Logging Level",
+	"value": "undefined"
+	},
+	{
+	"label": "Send Over Wifi Only",
+	"value": "undefined"
+	},
+	{
+	"label": "Last Checkin Time",
+	"value": "undefined"
+	},
+	{
+	"label": "Allowed WiFi SSID",
+	"value": "undefined"
+	},
+	{
+	"label": "Get Certificate Keys",
+	"value": "undefined"
+	},
+	{
+	"label": "Application Config Setting",
+	"value": "undefined"
+	},
+	{
+	"label": "SSO Status",
+	"value": "undefined"
+	}
+]}

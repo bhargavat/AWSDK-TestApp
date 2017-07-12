@@ -1,0 +1,5 @@
+"ListItem[platform=android]":{
+	height: '8%',
+	color: 'white',
+	left: '5dp'
+}

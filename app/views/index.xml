@@ -1,0 +1,44 @@
+<Alloy>
+	<NavigationWindow id="homewin" module="xp.ui">
+		<Window id="clientwin" title="Home">
+			<ListView id="listview" onItemclick="onListViewItemclick">
+				<ListSection id="clientsdksection" headerTitle="Client SDK">
+					<ListItem itemId="sdkmanager" title="SDK Manager APIs"/>
+					<ListItem itemId="secureappinfo" title="Secure App Info"/>
+					<ListItem itemId="authentication" title="Authentication"/>
+					<ListItem itemId="passcode" title="Passcode"/>
+					<ListItem itemId="certmgmt" title="Certificate Management"/>
+					<ListItem itemId="analytics" title="Analytics"/>
+					<ListItem itemId="clrappdata" title="Clear App Data Test"/>
+					<ListItem itemId="ssosession" title="SSO Session Info"/>
+					<ListItem itemId="profgrp" title="Profile Group Updates"/>
+					<ListItem itemId="factoryreset" title="Factory Reset Device"/>
+					<ListItem itemId="rmprofgrp" title="Remove Profile Group"/>
+					<ListItem itemId="reboot" title="Reboot Device"/>
+					<ListItem itemId="logging" title="Logging"/>
+					<ListItem itemId="factoryreset" title="App Public Key"/>
+					<ListItem itemId="appconfig" title="Application Configuration"/>
+				</ListSection>
+				<ListSection id="awframeworksection" headerTitle="AW Framework">
+					<ListItem itemId="keymanager" title="Key Manager"/>
+					<ListItem itemId="keymgrfile" title="Key Manager:-File"/>
+					<ListItem itemId="appsecpref" title="App Secure Preference"/>
+					<ListItem itemId="sdksecpref" title="SDK Secure Preferences"/>
+					<ListItem itemId="proxytunneling" title="Proxy Tunneling WebView/Http/URL/OKHTTP"/>
+					<ListItem itemId="sdkconfigfetch" title="SDK Configurations Fetch"/>
+					<ListItem itemId="frameworkui" title="Framework UI"/>
+					<ListItem itemId="qrreader" title="QR Reader"/>
+					<ListItem itemId="rootcheck" title="Rooted Check"/>
+					<ListItem itemId="nappsauth" title="Napps Authentication"/>
+					<ListItem itemId="search" title="Search"/>
+					<ListItem itemId="feedback" title="Feedback"/>
+					<ListItem itemId="datausage" title="App Data Usage"/>
+					<ListItem itemId="oemservice" title="OEM Service Methods"/>
+					<ListItem itemId="networkutil" title="Network Utilities"/>
+					<ListItem itemId="intigauth" title="Integrated Auth Activity"/>
+					<ListItem itemId="mngchain" title="Managed Chain Activity"/>	
+				</ListSection>
+			</ListView>
+		</Window>
+	</NavigationWindow>
+</Alloy>
