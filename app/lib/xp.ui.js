@@ -20,19 +20,18 @@ if (!OS_IOS) {
         options = options || {};
         options.swipeBack = (typeof options.swipeBack === 'boolean') ? options.swipeBack : that.args.swipeBack;
         options.displayHomeAsUp = (typeof options.displayHomeAsUp === 'boolean') ? options.displayHomeAsUp : that.args.displayHomeAsUp;
-
         if (OS_ANDROID && options.animated !== false) {
             options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
-            options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
+           // options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
         }
 
-        if (options.swipeBack !== false) {
-            window.addEventListener('swipe', function (e) {
-                if (e.direction === 'right') {
-                    that.closeWindow(window, options);
-                }
-            });
-        }
+        // if (options.swipeBack !== false) {
+            // window.addEventListener('swipe', function (e) {
+                // if (e.direction === 'right') {
+                    // that.closeWindow(window, options);
+                // }
+            // });
+        // }
 
         if (OS_ANDROID && options.displayHomeAsUp !== false && !window.navBarHidden) {
             window.addEventListener('open', function () {
@@ -57,7 +56,7 @@ if (!OS_IOS) {
 
         if (OS_ANDROID && options.animated !== false) {
             options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
-            options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
+           // options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
         }
 
         return window.close(options);

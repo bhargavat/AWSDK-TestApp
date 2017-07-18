@@ -1,7 +1,6 @@
 <Alloy>
-	<!-- <NavigationWindow> -->
 	<Window id="sdkmgrwin" class="titleClass" title="SDK Manager APIs">
-		<ListView id="clientsdklist" defaultItemTemplate="sdkmgrtemplate">
+		<ListView id="clientsdklist" defaultItemTemplate="sdkmgrtemplate" onItemclick="getListItemValue">
 			<Templates>
 				<ItemTemplate name="sdkmgrtemplate">
 					<View id='listitem'>
@@ -13,24 +12,6 @@
 			<ListSection id="sdklistsection" dataCollection="sdkmanagerlist">
 				<ListItem label:text="{label}" value:text="{value}"></ListItem>
 			</ListSection>
-			<!-- <ListSection>
-				<ListItem id="apiversion" class="itemlabels">
-					<View>
-						<Label>API Version</Label>
-						<Label id="api_value" class="itemvalues">undefined</Label>						
-					</View>
-				</ListItem>
-				<ListItem id="deviceuid" class="itemlabels" title="Device UID">
-					<Label id="uid_value" class="itemvalues">undefined</Label>
-				</ListItem>
-				<ListItem id="apipermission" class="itemlabels" title="API Permission">
-					<Label id="permission_cond" class="itemvalues">undefined</Label>
-				</ListItem>
-				<ListItem id="enrollmentstatus" class="itemlabels" title="Enrollment Status">
-					<Label id="enrollment_status" class="itemvalues">undefined</Label>
-				</ListItem>				
-			</ListSection> -->
 		</ListView>
 	</Window>
-<!-- </NavigationWindow> -->
 </Alloy>
