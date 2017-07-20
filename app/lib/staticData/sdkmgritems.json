@@ -152,23 +152,11 @@
 	"value": "undefined"
 	},
 	{
-	"label": "Is Integrated Auth Enabled",
-	"value": "undefined"
-	},
-	{
-	"label": "Domains Supported",
-	"value": "undefined"
-	},
-	{
-	"label": "LG Configure Mode",
-	"value": "undefined"
-	},
-	{
 	"label": "Is Shared Device Mode Enabled",
 	"value": "undefined"
 	},
 	{
-	"label": "Shared Device Chekout Status",
+	"label": "Shared Device Checkout Status",
 	"value": "undefined"
 	},
 	{
@@ -184,7 +172,7 @@
 	"value": "undefined"
 	},
 	{
-	"label": "Loggin Enable Status",
+	"label": "Login Enable Status",
 	"value": "undefined"
 	},
 	{

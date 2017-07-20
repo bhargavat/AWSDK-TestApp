@@ -7,13 +7,10 @@
 		fontSize: "18dp"
 	}
 }
-
-"#clientsdklist":{
-	
-}
 ".itemlabels":{
 	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
 	left:'15dp',
+	top: '5dp',
 	font:{
 		fontWeight: "bold",
 		fontColor: "red"	
@@ -24,11 +21,5 @@
 	top: '30dp',
 	font:{
 		fontSize: "12dp"
-	}
-}
-
-"TableViewRow":{
-	font:{
-		fontColor: "red"
 	}
 }

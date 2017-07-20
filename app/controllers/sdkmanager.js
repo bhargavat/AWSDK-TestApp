@@ -9,32 +9,29 @@ var SDKManagerAPI = null;
     		
 		SDKManagerAPI = require('sdkmanager_module');
 		
-		SDKManagerAPI.init(function(e){
-			Ti.API.info("initializing");
-			// if(e.error){
-				// alert(e.error);
-				// return;
-			// }
-			Ti.API.info("initialized");
-		});
+		 // setTimeout(function(){
+		SDKManagerAPI.init(function(e){});
+		 // },0);
 		
 	}		
 })($.sdkmgrwin);
-// Alloy.Collections.sdkmanagerlist.reset(labels_values); //binds the JSON data to the listview
-
+/**
+ * Makes the corresponding AW method call and updates the list item (when clicked) with retrieved value.
+ * Callback contains data and error attributes
+ */
 function getListItemValue(e){
-	var index = e.itemIndex;
+	var index = e.itemIndex; //index of list item
 	Ti.API.info('index: '+ index);
 	switch(index){
 		case 0:
 			SDKManagerAPI.getAPIVersion(function(e){
 				if(e.data != null || e.data != undefined){
 					Ti.API.info("API version: "+ e.data);
-					labels_values[0].value = e.data;
-					Alloy.Collections.sdkmanagerlist.reset(labels_values);
+					labels_values[index].value = e.data;
+					Alloy.Collections.sdkmanagerlist.reset(labels_values); //bind new JSON data to listview
 				}else{
 					Ti.API.info(e.error);
-					labels_values[0].value = e.error;
+					labels_values[index].value = e.error;
 					Alloy.Collections.sdkmanagerlist.reset(labels_values);
 				}	
 			});
@@ -42,10 +39,10 @@ function getListItemValue(e){
 		case 1:
 			SDKManagerAPI.getDeviceUid(function(e){
 				if(e.data != null || e.data != undefined){
-					labels_values[1].value = e.data;
+					labels_values[index].value = e.data;
 					Alloy.Collections.sdkmanagerlist.reset(labels_values);
 				}else{
-					labels_values[1].value = e.error;
+					labels_values[index].value = e.error;
 					Alloy.Collections.sdkmanagerlist.reset(labels_values);
 				}
 			});
@@ -53,10 +50,10 @@ function getListItemValue(e){
 		case 2:
 			SDKManagerAPI.hasAPIPermission(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[2].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[2].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -64,10 +61,10 @@ function getListItemValue(e){
 		case 3:
 			SDKManagerAPI.isEnrolled(function(e){
 			if(e.data){
-				labels_values[3].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[3].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -75,10 +72,10 @@ function getListItemValue(e){
 		case 4:
 			SDKManagerAPI.getEnrollmentUsername(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[4].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[4].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -86,10 +83,10 @@ function getListItemValue(e){
 		case 5:
 			SDKManagerAPI.getServerName(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[5].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[5].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -97,10 +94,10 @@ function getListItemValue(e){
 		case 6:
 			SDKManagerAPI.getGroupId(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[6].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[6].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -108,10 +105,22 @@ function getListItemValue(e){
 		case 7:
 			SDKManagerAPI.getAuthenticationType(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[7].value = e.data;
+				var response = null;
+				switch (e.data){
+				    case 0:
+				        response = "No Authentication Required";
+				        break;
+				    case 1:
+				        response = "Username & Password";
+				        break;
+				    default:
+				    	response = "Passcode";
+				    	break;
+				}
+				labels_values[index].value = e.data + " (" + response + ")";
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[7].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -119,10 +128,10 @@ function getListItemValue(e){
 		case 8:
 			SDKManagerAPI.authenticateUser("st","st",function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[8].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[8].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -130,10 +139,10 @@ function getListItemValue(e){
 		case 9:
 			SDKManagerAPI.isPasscodeRequired(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[9].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[9].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -142,9 +151,9 @@ function getListItemValue(e){
 			SDKManagerAPI.getPasscodeComplexity(function(e){
 			if(e.data != null || e.data != undefined){
 				if(e.data == 1){
-					labels_values[10].value = e.data + " (Numeric)";
+					labels_values[index].value = e.data + " (Numeric)";
 				}else if(e.data == 2){
-					labels_values[10].value = e.data +" (Alpha numeric)";
+					labels_values[index].value = e.data +" (Alpha numeric)";
 				}
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
@@ -156,10 +165,10 @@ function getListItemValue(e){
 		case 11: 
 			SDKManagerAPI.getMinPasscodeLength(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[11].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[11].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -167,10 +176,10 @@ function getListItemValue(e){
 		case 12:
 			SDKManagerAPI.getMinComplexChars(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[12].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[12].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -178,10 +187,10 @@ function getListItemValue(e){
 		case 13:
 			SDKManagerAPI.getMaxPasscodeAge(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[13].value = e.data + " day(s)";
+				labels_values[index].value = e.data + " day(s)";
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[13].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -189,10 +198,10 @@ function getListItemValue(e){
 		case 14:
 			SDKManagerAPI.getPasscodeHistory(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[14].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[14].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -200,10 +209,10 @@ function getListItemValue(e){
 		case 15:
 			SDKManagerAPI.isCompliant(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[15].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[15].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -211,10 +220,10 @@ function getListItemValue(e){
 		case 16:
 			SDKManagerAPI.isCompromised(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[16].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[16].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -222,10 +231,10 @@ function getListItemValue(e){
 		case 17:
 			SDKManagerAPI.isEnterprise(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[17].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[17].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -233,10 +242,10 @@ function getListItemValue(e){
 		case 18:
 			SDKManagerAPI.bluetoothAllowed(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[18].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[18].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -244,10 +253,10 @@ function getListItemValue(e){
 		case 19:
 			SDKManagerAPI.cameraAllowed(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[19].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[19].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -255,10 +264,10 @@ function getListItemValue(e){
 		case 20:
 			SDKManagerAPI.offlineModeAllowed(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[20].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[20].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -266,10 +275,10 @@ function getListItemValue(e){
 		case 21:
 			SDKManagerAPI.preventCopyAndCutActions(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[21].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[21].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -277,10 +286,10 @@ function getListItemValue(e){
 		case 22:
 			SDKManagerAPI.isAllowedWiFiSSID(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[22].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[22].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -288,10 +297,10 @@ function getListItemValue(e){
 		case 23:
 			SDKManagerAPI.getProfileId(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[23].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[23].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -299,10 +308,10 @@ function getListItemValue(e){
 		case 24:
 			SDKManagerAPI.getProfileName(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[24].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[24].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -311,10 +320,10 @@ function getListItemValue(e){
 		case 26:
 			SDKManagerAPI.isDNDEnabled(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[26].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[26].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -322,10 +331,10 @@ function getListItemValue(e){
 		case 27:
 			SDKManagerAPI.isDNDStatusSet(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[27].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[27].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -333,10 +342,10 @@ function getListItemValue(e){
 		case 28:
 			SDKManagerAPI.isSSOSessionValid(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[28].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[28].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -344,10 +353,10 @@ function getListItemValue(e){
 		case 29:
 			SDKManagerAPI.isSSOEnabled(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[29].value = e.data;
+				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[29].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -355,14 +364,268 @@ function getListItemValue(e){
 		case 30:
 			SDKManagerAPI.getSSOGracePeriod(function(e){
 			if(e.data != null || e.data != undefined){
-				labels_values[30].value = e.data + " minute(s)";
+				labels_values[index].value = e.data + " minute(s)";
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[30].value = e.error;
+				labels_values[index].value = e.error;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
 			break;
+		case 31:
+			SDKManagerAPI.getDNDStatus(function(e){
+			if(e.data != null || e.data != undefined){
+			var response = null;
+			switch (e.data){
+				case 0:
+				    response = "DND Status is not set";
+				    break;
+				case 1:
+				    response = "DND Status is set";
+				    break;
+				default:
+				    response = "Unknown";
+					break;
+			}
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 32:
+			SDKManagerAPI.getWorkspaceExitMode(function(e){
+			if(e.data != null || e.data != undefined){
+				var response = null;
+				switch (e.data){
+				    case 0:
+				        response = "Lock & Exit";
+				        break;
+				    case 1:
+				        response = "Exit with Notification";
+				        break;
+				    default:
+				    	response = "Unknown";
+				    	break;
+				}
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 33:
+			SDKManagerAPI.getAnchorType(function(e){
+			if(e.data != null || e.data != undefined){
+				var response = null;
+				switch (e.data){
+					case 0:
+						response = "Agent";
+						break;
+					case 1:
+						response = "Workspace";
+						break;
+					default:
+						response = "Unknown";
+						break;
+				}
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;	
+		case 34:
+			SDKManagerAPI.getConsoleVersion(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data.toFixed(1);
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 35:
+			SDKManagerAPI.getIntegratedAuthEnabled(function(e){
+			if(e.data != null || e.data != undefined){
+				var response = null;
+				switch (e.data){
+					case 0:
+						response = "IntegratedAuthentication status is not set on AirWatch";
+						break;
+					case 1:
+						response = "IntegratedAuthentication status is set on AirWatch";
+						break;
+					default:
+						response = "IntegratedAuthentication status is unknown on AirWatch";
+						break;
+				}
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 36:
+			SDKManagerAPI.getDomains(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;	
+		case 37:
+			SDKManagerAPI.getLGConfigureMode(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 38:
+			SDKManagerAPI.isSharedDeviceModeEnabled(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 39:
+			SDKManagerAPI.getcheckoutStatus(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 40:
+			SDKManagerAPI.getSessionToken(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 41:
+			SDKManagerAPI.getCustomSettings(function(e){
+			if(e.data != null || e.data != undefined){
+				var response = "------- Custom Profile : -------\n";
+				response += e.data;
+				response += "\n------- ### End ### -------\n";
+				
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 42:
+			SDKManagerAPI.getAllProfileGroups(function(e){
+			if(e.data != null || e.data != undefined){
+				var groups = e.data;
+				//var groups1 = Array.from(e.data);
+				 // var response = groups;
+				 // Ti.API.info("length: "+ groups.length);
+				 // Ti.API.info("groups: " + groups);
+				 // Ti.API.info("groups1: " + groups1);
+			//	 Ti.API.info("isArray: " + groups.isArray());
+				// Ti.API.info("groups: " + groups);
+				// Ti.API.info("groups[1]:" + e.data.groups[1]);
+				// var response = "";
+				// var i = 0;
+				// for(i = 0; i < groups.length; i++){
+					// Ti.API.info(groups[i]);
+					// response += groups.shift() +"\n";
+				// }
+				Ti.API.info(e.data);
+				labels_values[index].value = groups;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 43:
+			SDKManagerAPI.getLoggingStatus(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 44:
+			SDKManagerAPI.getLoggingLevel(function(e){
+			if(e.data != null || e.data != undefined){
+				var response = null;
+				switch (e.data){
+					case 6:
+						response = "Error";
+						break;
+					case 5:
+						response = "Warning";
+						break;
+					case 4:
+						response = "Information";
+						break;
+					case 3:
+						response = "Debug";
+						break;	
+					default:
+						response = "Unknown";
+						break;					
+				}
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 45:
+			SDKManagerAPI.getLoggingStatus(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		default:
+			labels_values[index].value = "Not available";
+			Alloy.Collections.sdkmanagerlist.reset(labels_values);
 	}
 }
 

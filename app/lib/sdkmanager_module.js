@@ -9,16 +9,19 @@ var SDKManager = require('com.airwatch.sdk.SDKManager');
 	Ti.API.info("PasscodePolicy-import: "+ PasscodePolicy);
 	var mypasscodePolicy = null;
 	var restrictionPolicy = null;
+	var ProxyType = require('com.airwatch.sdk.ProxyType');
 
 sdkManagerAPI.init = function(callback){
 	Ti.API.info("Came to init function");
 		Ti.API.info("AWSDKMANAGER-before: ", awSDKManager); //why its not able to run right away
-		try{
-			awSDKManager = SDKManager.init(currentActivity.getApplicationContext());
-			Ti.API.info("Context: ", currentActivity.getApplicationContext());
-		}catch(e){
-			Ti.API.info(e.message);
-			Ti.API.info("Init failed");
+		if(awSDKManager == null ||awSDKManager == undefined){
+			// try{
+				awSDKManager = SDKManager.init(currentActivity.getApplicationContext());
+				Ti.API.info("Context: ", currentActivity.getApplicationContext());
+			// }catch(e){
+				// Ti.API.info(e.message);
+				// Ti.API.info("Init failed");
+			// }
 		}
 		Ti.API.info("AWSDKMANAGER-after: ", awSDKManager);
 		if(!awSDKManager){
@@ -456,184 +459,281 @@ sdkManagerAPI.isDNDStatusSet = function(callback){
 		});
 	}
 };
-// 
-// sdkManagerAPI.isSSOSessionValid = function(callback){
-	// if(awSDKManager){
-		// callback({
-			// data: awSDKManager.isSSOSessionValid(),
-			// error: null
-        // });
-	// }else{
-		// callback({
-			// data: null,
-			// error: "Not found"
-		// });
-	// }
-// };
-// 
-// sdkManagerAPI.isSSOEnabled = function(callback){
-	// if(awSDKManager){
-		// callback({
-			// data: awSDKManager.isSSOEnabled(),
-			// error: null
-        // });
-	// }else{
-		// callback({
-			// data: null,
-			// error: "Not found"
-		// });
-	// }
-// };
 
-// sdkManagerAPI.getSSOGracePeriod = function(callback){ //chang to callback
-// var dndStatus = awSDKManager.getAnchorAppStatus().getDNDStatus();
-	// var response = null;
-    // switch (dndStatus){
-        // case 0:
-            // response = "DND Status is not set";
-            // break;
-        // case 1:
-            // response = "DND Status is set";
-            // break;
-        // default:
-            // response = "Not found";
-            // break;
-    // }
-    // callback({
-		// data: response,
-		// error: null
-	// });
-// };
-// 
-// sdkManagerAPI.getWorkspaceExitMode = function(){ //change to callback
-	// var mode = awSDKManager.getAnchorAppStatus().getWorkspaceExitMode();
-    // switch (mode){
-	    // case 0:
-	        // return "Lock & Exit";
-	    // case 1:
-	        // return "Exit with Notification";
-	    // default:
-	    	// return "Unknown";
-	// }
-// };
-// 
-// sdkManagerAPI.getAnchorType = function(){ // change to callback
-	// var anchorType = awSDKManager.getAnchorAppStatus().getAnchorType();
-	// switch (anchorType){
-		// case 0:
-			// return "Agent";
-			// break;
-		// case 1:
-			// return "Workspace";
-			// break
-		// default:
-			// return "Unknown";
-			// break;
-	// }
-// };
-// 
-// sdkManagerAPI.getConsoleVersion = function(callback){
-	// if(awSDKManager){
-		// callback({
-			// data: awSDKManager.getConsoleVersion(),
-			// error: null
-        // });
-	// }else{
-		// callback({
-			// data: null,
-			// error: "Not found"
-		// });
-	// }
-	// // if(awSDKManager){
-		// // return awSDKManager.getConsoleVersion();
-	// // }
-// };
-// 
-// sdkManagerAPI.getIntegratedAuthEnabled = function(){ //change to callback
-	// var status = awSDKManager.getIntegratedAuthenticationProfile().getIntegratedAuthEnabled();
-	// switch (status) {
-		// case 0:
-			// callback({
-				// data: null,
-				// error: "IntegratedAuthentication status is not set on AirWatch"
-			// });
-			// break;
-			// //return "IntegratedAuthentication status is not set on AirWatch";
-        // case 1:
-			// callback({
-				// data: "IntegratedAuthentication status is set on AirWatch",
-				// error: null
-			// });
-			// //return "IntegratedAuthentication status is set on AirWatch";
-		// default:
-			// callback({
-				// data: null,
-				// error: "IntegratedAuthentication status is unknown on AirWatch"
-			// });
-			// //return "IntegratedAuthentication status is unknown on AirWatch";
-    // }
-	// // switch (status) {
-		// // case 0:
-			// // return "IntegratedAuthentication status is not set on AirWatch";
-        // // case 1:
-			// // return "IntegratedAuthentication status is set on AirWatch";
-		// // default:
-			// // return "IntegratedAuthentication status is unknown on AirWatch";
-    // // }
-// };
-// 
-// sdkManagerAPI.getDomains = function(){
-	// var domains = awSDKManager.getIntegratedAuthenticationProfile().getDomains();
-// 	
-	// if(domains == null || domains.length == 0){
-		// return "Domain is empty";
-	// }else{
-		// return domains;
-	// }
-// };
-// 
-// sdkManagerAPI.getLGConfigureMode = function(){
-	// if(awSDKManager){
-		// callback({
-			// data: awSDKManager.getSharedDeviceStatus().getLGConfigureMode(),
-			// error: null
-        // });
-	// }else{
-		// callback({
-			// data: null,
-			// error: "Not found"
-		// });
-	// }
-	// //return awSDKManager.getSharedDeviceStatus().getLGConfigureMode();
-// };
-// 
-// sdkManagerAPI.isSharedDeviceModeEnabled = function(){
-	// return awSDKManager.getSharedDeviceStatus().isSharedDeviceModeEnabled();
-// };
-// 
-// sdkManagerAPI.getcheckoutStatus = function(){
-	// return awSDKManager.getSharedDeviceStatus().getcheckoutStatus();
-// };
-// 
-// sdkManagerAPI.getSessionToken = function(){
-	// //proxytype?
-// };
-// 
-// sdkManagerAPI.getCustomSettings = function(){
-	// var customSettingsString = awSDKManager.getCustomSettings();
-	// var response = "";
-	// if (null != customSettingsString && customSettingsString.trim().length() != 0) {
-		// response += "------- Custom Profile : -------\n";
-		// response += customSettingsString;
-		// response += "\n------- ### End ### -------\n\n";
-	// } else {
-		// response += "N/A";
-	// }
-	// return response;
-// };
-// 
-// sdkManagerAPI.getAllProfileGroups = function(){
-	// //getting List<String> in js? 
-// };
+sdkManagerAPI.isSSOSessionValid = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.isSSOSessionValid(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
 
+sdkManagerAPI.isSSOEnabled = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.isSSOEnabled(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getSSOGracePeriod = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getSSOGracePeriod(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getDNDStatus = function(callback){
+	if(awSDKManager){
+		var dndStatus = awSDKManager.getAnchorAppStatus().getDNDStatus();
+		callback({
+			data: dndStatus,
+			error: null
+        });
+		// var response = null;
+		 // switch (dndStatus){
+			// case 0:
+			    // response = "DND Status is not set";
+			    // break;
+			// case 1:
+			    // response = "DND Status is set";
+			    // break;
+			// default:
+			    // response = "Unknown";
+				// break;
+		// }
+		// callback({
+			// data: response,
+			// error: null
+        // });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+sdkManagerAPI.getWorkspaceExitMode = function(callback){ //change to callback
+	var mode = awSDKManager.getAnchorAppStatus().getWorkspaceExitMode();
+	callback({
+		data: mode,
+		error: null
+	});
+};
+
+sdkManagerAPI.getAnchorType = function(callback){ // change to callback
+	if(awSDKManager){
+		var appStatus = awSDKManager.getAnchorAppStatus();
+		var anchorType = appStatus.getAnchorType();
+		callback({
+			data: anchorType,
+			error: null
+		});
+	}
+};
+
+sdkManagerAPI.getConsoleVersion = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getConsoleVersion(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getIntegratedAuthEnabled = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getIntegratedAuthenticationProfile().getIntegratedAuthEnabled(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getDomains = function(callback){
+	var domains = awSDKManager.getIntegratedAuthenticationProfile().getDomains();
+	
+	if(domains == null || domains.length == 0){
+		callback({
+			data: null,
+			error: "Domain is empty"
+		});
+	}else{
+		callback({
+			data: domains,
+			error: null
+		});
+	}
+};
+
+sdkManagerAPI.getLGConfigureMode = function(callback){ //not working
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getSharedDeviceStatus().getLGConfigureMode(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.isSharedDeviceModeEnabled = function(callback){ //not working
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getSharedDeviceStatus().isSharedDeviceModeEnabled(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+	//return awSDKManager.getSharedDeviceStatus().isSharedDeviceModeEnabled();
+};
+
+sdkManagerAPI.getcheckoutStatus = function(callback){ //not working [awSDKManager.getSharedDeviceStatus() = null]
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getSharedDeviceStatus().getcheckoutStatus(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+	//return awSDKManager.getSharedDeviceStatus().getcheckoutStatus();
+};
+
+sdkManagerAPI.getSessionToken = function(callback){
+	if(awSDKManager){
+		Ti.API.info("ProxyType: " + ProxyType.F5);
+		Ti.API.info("SessionToken: " + awSDKManager.getSessionToken(ProxyType.F5));
+		callback({
+			data: awSDKManager.getSessionToken(ProxyType.F5),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+// 
+sdkManagerAPI.getCustomSettings = function(callback){
+	var customSettingsString = awSDKManager.getCustomSettings().toString();
+	if (null != customSettingsString && customSettingsString.trim().length != 0) {
+		callback({
+			data: customSettingsString,
+			error: null
+		});
+	}
+};
+
+sdkManagerAPI.getAllProfileGroups = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getAllProfileGroups(),
+			error: null
+		});
+	}
+	//getting List<String> in js? 
+};
+
+sdkManagerAPI.getLoggingStatus = function(callback){
+	if(awSDKManager){
+		var profile = awSDKManager.getLoggingSettings();
+		if(profile){
+			callback({
+				data: profile.getLoggingStatus(),
+				error: null
+			});
+		}else{
+			callback({
+				data: null,
+				error: "Undefined LoggingProfile"
+			});
+		}
+	}
+};
+
+sdkManagerAPI.getLoggingLevel = function(callback){
+	if(awSDKManager){
+		var profile = awSDKManager.getLoggingSettings();
+		if(profile){
+			callback({
+				data: profile.getLoggingLevel(),
+				error: null
+			});
+		}else{
+			callback({
+				data: null,
+				error: "Undefined LoggingProfile"
+			});
+		}
+	}
+};
+
+sdkManagerAPI.getDeviceLastCheckinTime = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.getDeviceLastCheckinTime(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.isAllowedWiFiSSID = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.isAllowedWiFiSSID(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
 module.exports = sdkManagerAPI;
