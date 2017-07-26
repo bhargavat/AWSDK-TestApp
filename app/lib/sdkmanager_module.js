@@ -2,26 +2,28 @@ var sdkManagerAPI = {};
 var awSDKManager = null; //instance of the SDKManager
 
 var Activity = require('android.app.Activity'),
-    currentActivity = new Activity(Ti.Android.currentActivity);
+    SDKManagerActivity = new Activity(Ti.Android.currentActivity);
 var SDKManager = require('com.airwatch.sdk.SDKManager');
 
-	var PasscodePolicy = require('com.airwatch.sdk.profile.PasscodePolicy');
-	Ti.API.info("PasscodePolicy-import: "+ PasscodePolicy);
 	var mypasscodePolicy = null;
 	var restrictionPolicy = null;
 	var ProxyType = require('com.airwatch.sdk.ProxyType');
-
+	//var appInfo = require('com.airwatch.sdk.SecureAppInfo');
+	//var myappInfo = null;
 sdkManagerAPI.init = function(callback){
 	Ti.API.info("Came to init function");
+		Ti.API.info("Typeof callback: " + (typeof callback === "function"));
 		Ti.API.info("AWSDKMANAGER-before: ", awSDKManager); //why its not able to run right away
 		if(awSDKManager == null ||awSDKManager == undefined){
-			// try{
-				awSDKManager = SDKManager.init(currentActivity.getApplicationContext());
-				Ti.API.info("Context: ", currentActivity.getApplicationContext());
-			// }catch(e){
-				// Ti.API.info(e.message);
-				// Ti.API.info("Init failed");
-			// }
+			try{
+				// setTimeout(function(){
+					Ti.API.info("Context: ", SDKManagerActivity.getApplicationContext());
+					var context = SDKManagerActivity.getApplicationContext();
+					awSDKManager = SDKManager.init(context);
+				// },10000);
+			}catch(e){
+				Ti.API.info("Init failed");
+			}
 		}
 		Ti.API.info("AWSDKMANAGER-after: ", awSDKManager);
 		if(!awSDKManager){
@@ -97,19 +99,19 @@ sdkManagerAPI.isEnrolled = function(callback){
 	}
 };
 
-sdkManagerAPI.getEnrollmentUsername = function(callback){
-	if(awSDKManager){
-		callback({
-			data: awSDKManager.getEnrollmentUsername(),
-			error: null
-        });
-	}else{
-		callback({
-			data: null,
-			error: "Not found"
-		});
-	}
-};
+// sdkManagerAPI.getEnrollmentUsername = function(callback){
+	// if(awSDKManager){
+		// callback({
+			// data: awSDKManager.getEnrollmentUsername(),
+			// error: null
+        // });
+	// }else{
+		// callback({
+			// data: null,
+			// error: "Not found"
+		// });
+	// }
+// };
 
 sdkManagerAPI.getServerName = function(callback){
 	if(awSDKManager){
@@ -154,7 +156,6 @@ sdkManagerAPI.getAuthenticationType = function(callback){
 };
 
 sdkManagerAPI.authenticateUser = function(username,password, callback){
-	//appInfo = awSDKManager.getSecureAppInfo();
 	if(awSDKManager){
 		callback({
 			data: awSDKManager.authenticateUser(username, password),
@@ -212,7 +213,6 @@ sdkManagerAPI.getPasscodeComplexity = function(callback){
 sdkManagerAPI.getMinPasscodeLength = function(callback){
 	if(awSDKManager){
 		mypasscodePolicy = awSDKManager.getPasscodePolicy();
-		//Ti.API.info("mypasscodePolicy-after[getMinPasscodeLength]: " + mypasscodePolicy);
 		Ti.API.info("passLength: " + mypasscodePolicy.getMinPasscodeLength());
 		callback({
 			data: mypasscodePolicy.getMinPasscodeLength(),
@@ -383,7 +383,6 @@ sdkManagerAPI.preventCopyAndCutActions = function(callback){
 	}	
 };
 
-
 sdkManagerAPI.isAllowedWiFiSSID = function(callback){ //need restrictionPolicy
 	if(awSDKManager){
 		callback({
@@ -509,22 +508,6 @@ sdkManagerAPI.getDNDStatus = function(callback){
 			data: dndStatus,
 			error: null
         });
-		// var response = null;
-		 // switch (dndStatus){
-			// case 0:
-			    // response = "DND Status is not set";
-			    // break;
-			// case 1:
-			    // response = "DND Status is set";
-			    // break;
-			// default:
-			    // response = "Unknown";
-				// break;
-		// }
-		// callback({
-			// data: response,
-			// error: null
-        // });
 	}else{
 		callback({
 			data: null,
@@ -621,7 +604,6 @@ sdkManagerAPI.isSharedDeviceModeEnabled = function(callback){ //not working
 			error: "Not found"
 		});
 	}
-	//return awSDKManager.getSharedDeviceStatus().isSharedDeviceModeEnabled();
 };
 
 sdkManagerAPI.getcheckoutStatus = function(callback){ //not working [awSDKManager.getSharedDeviceStatus() = null]
@@ -636,7 +618,6 @@ sdkManagerAPI.getcheckoutStatus = function(callback){ //not working [awSDKManage
 			error: "Not found"
 		});
 	}
-	//return awSDKManager.getSharedDeviceStatus().getcheckoutStatus();
 };
 
 sdkManagerAPI.getSessionToken = function(callback){
@@ -667,13 +648,39 @@ sdkManagerAPI.getCustomSettings = function(callback){
 
 sdkManagerAPI.getAllProfileGroups = function(callback){
 	if(awSDKManager){
+		var profileGroups = "" + awSDKManager.getAllProfileGroups();
+		Ti.API.info("profileGroups: " + profileGroups);
+		Ti.API.info("size: " + profileGroups.length);
+		var respArray = convertListtoArray(profileGroups);
+		Ti.API.info("respArry is array?: "  + Array.isArray(respArray));
+		Ti.API.info("array size: "+ respArray.length);
+	}
+	if(Array.isArray(respArray)){
 		callback({
-			data: awSDKManager.getAllProfileGroups(),
+			data: respArray,
 			error: null
 		});
+	}else{
+		callback({
+			data: null,
+			error: "Not Found"
+		});
 	}
-	//getting List<String> in js? 
 };
+
+function convertListtoArray(list){
+	if(typeof list === 'string'){
+		list = list.replace("[","");
+		list = list.replace("]","");
+		var array = ["null"]; //initialize array with null string value
+		if(list.includes(", ")){ //has more than 1 item
+			array = list.split(", ");
+		}else if ((list.length > 0) && !list.includes(", ")){ //has 1 item only
+			array[0] = list;
+		}
+		return array;
+	}
+}
 
 sdkManagerAPI.getLoggingStatus = function(callback){
 	if(awSDKManager){
@@ -736,4 +743,169 @@ sdkManagerAPI.isAllowedWiFiSSID = function(callback){
 		});
 	}
 };
+
+sdkManagerAPI.isAllowedWiFiSSID = function(callback){
+	if(awSDKManager){
+		callback({
+			data: awSDKManager.isAllowedWiFiSSID(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getSSOStatus = function(callback){
+	if(awSDKManager){
+		callback({
+			data: "" + awSDKManager.getSSOStatus(),
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getApplicationConfigSetting = function(callback){
+	if(awSDKManager){
+		var configSetting = awSDKManager.getApplicationConfigSetting();
+		Ti.API.info("config: " + configSetting);
+		callback({
+			data: configSetting,
+			error: null
+        });
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+//configSetting = awSDKManager.getApplicationConfigSetting();
+/**------SECURE APP INFO------**/
+
+sdkManagerAPI.getEnrollmentUsername = function(callback){
+	if(awSDKManager){
+		if(myappInfo == null || myappInfo == undefined){
+			myappInfo = awSDKManager.getSecureAppInfo();
+		}
+		Ti.API.info("myappInfo: "+ myappInfo);
+		Ti.API.info("EnrollmentUsername: " + myappInfo.getEnrollmentUsername());
+		if(myappInfo){
+			callback({
+				data: myappInfo.getEnrollmentUsername(),
+				error: null
+	        });
+       }else{
+       		callback({
+				data: null,
+				error: "SecureAppInfo not found"
+	        });
+       }
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getEnrollmentUsername = function(callback){
+	if(awSDKManager){
+		var myappInfo = awSDKManager.getSecureAppInfo();
+		
+		Ti.API.info("myappInfo: "+ myappInfo);
+		Ti.API.info("EnrollmentUsername: " + myappInfo.getEnrollmentUsername());
+		if(myappInfo){
+			callback({
+				data: myappInfo.getEnrollmentUsername(),
+				error: null
+	        });
+       }else{
+       		callback({
+				data: null,
+				error: "SecureAppInfo not found"
+	        });
+       }
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getEnrollmentPassword = function(callback){
+	if(awSDKManager){
+		var myappInfo = awSDKManager.getSecureAppInfo();
+		if(myappInfo){
+			callback({
+				data: myappInfo.getEnrollmentPassword(),
+				error: null
+	        });
+       	}else{
+       		callback({
+				data: null,
+				error: "SecureAppInfo not found"
+	        });
+       	}
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getHMACToken = function(appId, reregister, callback){
+	if(awSDKManager){
+		var myappInfo = awSDKManager.getSecureAppInfo();
+		if(myappInfo){
+			callback({
+				data: myappInfo.register(appId, reregister),
+				error: null
+	        });
+       	}else{
+       		callback({
+				data: null,
+				error: "SecureAppInfo not found"
+	        });
+       	}
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
+sdkManagerAPI.getUserID = function(callback){
+	if(awSDKManager){
+		var myappInfo = awSDKManager.getSecureAppInfo();
+		if(myappInfo){
+			callback({
+				data: myappInfo.getUserID(),
+				error: null
+	        });
+       	}else{
+       		callback({
+				data: null,
+				error: "SecureAppInfo not found"
+	        });
+       	}
+	}else{
+		callback({
+			data: null,
+			error: "Not found"
+		});
+	}
+};
+
 module.exports = sdkManagerAPI;

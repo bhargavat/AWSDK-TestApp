@@ -1,0 +1,17 @@
+<Alloy>
+	<Window id="secureappwin" class="titleClass" title="Secure App Info">
+		<ListView id="secapplistview" defaultItemTemplate="secureapptemplate" onItemclick="getListItemValue">
+			<Templates>
+				<ItemTemplate name="secureapptemplate">
+					<View id='listitem'>
+						<Label id="text" bindId="label" class="itemlabels"></Label>
+						<Label id="subtext" bindId="value" class="itemvalues"></Label>						
+					</View>
+				</ItemTemplate>
+			</Templates>
+			<ListSection id="secureappsection" dataCollection="secureapplist">
+				<ListItem label:text="{label}" value:text="{value}"></ListItem>
+			</ListSection>
+		</ListView>
+	</Window>
+</Alloy>

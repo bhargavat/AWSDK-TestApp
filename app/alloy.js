@@ -12,10 +12,10 @@
 
 var core = ("/utils/core");
 
-// Initialize collections
+// Initialize SDKManager collections
 var bbCollection = Backbone.Collection.extend();
 Alloy.Collections.sdkmanagerlist = new bbCollection();
-
+Alloy.Collections.secureapplist = new bbCollection();
 // added during app creation. this will automatically login to
 // ACS for your application and then fire an event (see below)
 // when connected or errored. if you do not use ACS in your

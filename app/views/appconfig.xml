@@ -1,0 +1,8 @@
+<Alloy>
+	<Window id="appconfigwin">
+		<View id="configview">
+			<Label id="titlelabel">App Configuration\n</Label>			
+			<Label id ="configvalue">Hello World</Label>	
+			</View>
+	</Window>
+</Alloy>

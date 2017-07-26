@@ -5,7 +5,7 @@
 				<ListSection id="clientsdksection" headerTitle="Client SDK">
 					<ListItem itemId="sdkmanager" title="SDK Manager APIs"/>
 					<ListItem itemId="secureappinfo" title="Secure App Info"/>
-					<ListItem itemId="authentication" title="Authentication"/>
+					<!--<ListItem itemId="authentication" title="Authentication"/> -->
 					<ListItem itemId="passcode" title="Passcode"/>
 					<ListItem itemId="certmgmt" title="Certificate Management"/>
 					<ListItem itemId="analytics" title="Analytics"/>

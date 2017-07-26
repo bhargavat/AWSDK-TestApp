@@ -1,0 +1,22 @@
+{"data":[
+	{
+	"label": "Enrollment Username",
+	"value": "undefined"
+	},
+	{
+	"label": "Enrollment Password",
+	"value": "undefined"
+	},
+	{
+	"label": "HMAC Token",
+	"value": "undefined"
+	},
+	{
+	"label": "HMAC Token Reregister",
+	"value": "undefined"
+	},
+	{
+	"label": "User ID",
+	"value": "undefined"
+	}
+]}

@@ -1,0 +1,25 @@
+"#secureappwin":{
+	top: "0dp"
+}
+
+".titleClass":{
+	font:{
+		fontSize: "18dp"
+	}
+}
+".itemlabels":{
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+	left:'15dp',
+	top: '5dp',
+	font:{
+		fontWeight: "bold",
+		fontColor: "red"	
+	}
+}
+".itemvalues":{
+	left: '30dp',
+	top: '30dp',
+	font:{
+		fontSize: "12dp"
+	}
+}

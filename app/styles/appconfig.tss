@@ -1,0 +1,11 @@
+"#titlelabel":{
+	top: '10dp',
+	left: '15dp'
+}
+"#configvalue":{
+	top: '35dp',
+	left: '16dp',
+	font:{
+		fontSize: '13dp'
+	}
+}

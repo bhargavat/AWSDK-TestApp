@@ -3,16 +3,9 @@ var SDKManagerAPI = null;
 (function (container) {
 	labels_values = getJSONData('staticData/sdkmgritems.json'); //JSON object containing the data from external JSON file
 	Alloy.Collections.sdkmanagerlist.reset(labels_values);
-	if(OS_ANDROID){
-		// var Activity = require('android.app.Activity');
-    	// var	currentActivity = new Activity(Ti.Android.currentActivity);
-    		
+	if(OS_ANDROID){ 		
 		SDKManagerAPI = require('sdkmanager_module');
-		
-		 // setTimeout(function(){
-		SDKManagerAPI.init(function(e){});
-		 // },0);
-		
+		SDKManagerAPI.init(function(e){}); //initialize SDKManager to access its methods	
 	}		
 })($.sdkmgrwin);
 /**
@@ -525,7 +518,7 @@ function getListItemValue(e){
 				labels_values[index].value = e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
-				labels_values[index].value = e.error;
+				labels_values[index].value = "null";
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}
 			});
@@ -549,22 +542,12 @@ function getListItemValue(e){
 			SDKManagerAPI.getAllProfileGroups(function(e){
 			if(e.data != null || e.data != undefined){
 				var groups = e.data;
-				//var groups1 = Array.from(e.data);
-				 // var response = groups;
-				 // Ti.API.info("length: "+ groups.length);
-				 // Ti.API.info("groups: " + groups);
-				 // Ti.API.info("groups1: " + groups1);
-			//	 Ti.API.info("isArray: " + groups.isArray());
-				// Ti.API.info("groups: " + groups);
-				// Ti.API.info("groups[1]:" + e.data.groups[1]);
-				// var response = "";
-				// var i = 0;
-				// for(i = 0; i < groups.length; i++){
-					// Ti.API.info(groups[i]);
-					// response += groups.shift() +"\n";
-				// }
-				Ti.API.info(e.data);
-				labels_values[index].value = groups;
+				var response = "";
+				for(group in groups){
+					response += groups[group] + "\n";
+				}
+				response = response.substr(0,response.length-1); //remove last new-line char
+				labels_values[index].value = response;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
 				labels_values[index].value = e.error;
@@ -616,6 +599,69 @@ function getListItemValue(e){
 			SDKManagerAPI.getLoggingStatus(function(e){
 			if(e.data != null || e.data != undefined){
 				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 46:
+			SDKManagerAPI.getDeviceLastCheckinTime(function(e){
+			if(e.data != null || e.data != undefined){
+				var date = new Date(e.data); //format data type 'long' to Date object
+				labels_values[index].value = date.toString();
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 47:
+			SDKManagerAPI.isAllowedWiFiSSID(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = e.data;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		// case 48:
+			// SDKManagerAPI.isAllowedWiFiSSID(function(e){
+			// if(e.data != null || e.data != undefined){
+				// labels_values[index].value = e.data;
+				// Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			// }else{
+				// labels_values[index].value = e.error;
+				// Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			// }
+			// });
+			// break;
+		case 49:
+			SDKManagerAPI.getApplicationConfigSetting(function(e){
+			if(e.data != null || e.data != undefined){
+				var dict = e.data;
+				var response = "";
+				// Ti.API.info("Hello's value': "+ dict['random']);
+				// labels_values[index].value = e.data;
+				for(var key in dict){
+					response += "[key: " + key + "], [value: "+ dict[key] + "]\n";
+				}
+				labels_values[index].value = response;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}else{
+				labels_values[index].value = e.error;
+				Alloy.Collections.sdkmanagerlist.reset(labels_values);
+			}
+			});
+			break;
+		case 50:
+			SDKManagerAPI.getSSOStatus(function(e){
+			if(e.data != null || e.data != undefined){
+				labels_values[index].value = ""+e.data;
 				Alloy.Collections.sdkmanagerlist.reset(labels_values);
 			}else{
 				labels_values[index].value = e.error;
